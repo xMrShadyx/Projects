@@ -44,3 +44,7 @@ Real-world PDFs, spreadsheets, codecs and mobile memory conditions vary. No OCR,
 - Seven additional automated PDF tests verify page order/count, split ZIP contents, selected rotations/crop bounds, form field removal, readable outputs and invalid-request/cancellation rejection.
 
 The catalog now includes 84 shortcuts. A narrow 390 px viewport showed no horizontal page overflow. PNG-to-JPEG conversion still succeeds after the navigation redesign.
+
+## Header dropdown menus
+
+Convert PDF and All tools were verified in the browser: direct tool selection, category shortcuts, one open menu at a time, ArrowDown to open/focus, Escape to close/restore focus, outside-click dismissal, dark theme, and narrow-screen layout.

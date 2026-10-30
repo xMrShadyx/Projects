@@ -22,7 +22,7 @@ Open http://127.0.0.1:4198. For static hosting, publish `dist/` after building. 
 
 ## Interface
 
-The home screen has a searchable card directory with category filters and descriptions. Selecting a tool opens its workspace. The default theme is light; the theme button switches to dark and stores the preference in browser-local storage. Existing conversion results stay in memory while navigating between tools.
+The header includes a two-column Convert PDF dropdown and a grouped All tools directory, with direct tool links and category shortcuts. Menus support keyboard navigation, Escape, outside-click dismissal and responsive scrolling in both themes. The home screen has a searchable card directory with category filters and descriptions. Selecting a tool opens its workspace. The default theme is light; the theme button switches to dark and stores the preference in browser-local storage. Existing conversion results stay in memory while navigating between tools.
 
 ## Conversion tools
 
