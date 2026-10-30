@@ -15,3 +15,13 @@ Equipment and combat formulas are illustrative and do not represent official Min
 ## Structure
 
 Each project lives in its own folder with source code and an English README.
+
+## Media Forge
+
+A browser-based conversion workspace with 72 searchable conversion shortcuts and 31 output extensions for video, audio, images, PDF, documents, spreadsheets and archives.
+
+- [Source, setup and capability details](./media-forge/README.md)
+- [Hosted demo](https://shady-media-forge.daredevil91138.chatgpt.site) — owner-private preview.
+- [Validation](./media-forge/VALIDATION.md)
+
+Files are processed on the user's device. Document conversion and format limitations are explained in the interface and README.

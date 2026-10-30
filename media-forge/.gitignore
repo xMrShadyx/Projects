@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.sites-runtime/
+.agents/
+.codex/
+*.tar.gz
+tests/fixtures/
+public/NotoSans-Regular.ttf

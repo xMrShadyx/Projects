@@ -1,0 +1,5 @@
+import{test}from'node:test';import assert from'node:assert/strict';import{pageNumbers,safeEntry,fileAccepts}from'../src/file-model.mjs';import{tools}from'../src/catalog.js';
+test('page ranges are bounded, sorted and deduplicated',()=>{assert.deepEqual(pageNumbers('3,1-3',4),[1,2,3]);assert.deepEqual(pageNumbers('all',2),[1,2]);for(const v of ['0','1-9','3-1','a','1.5'])assert.throws(()=>pageNumbers(v,4))});
+test('archives reject traversal and absolute paths',()=>{for(const p of ['../file','C:/file','/file','a/../../x','a\\..\\x'])assert.throws(()=>safeEntry(p));assert.equal(safeEntry('a/b.txt'),'a/b.txt')});
+test('document tools accept only declared formats',()=>{assert.ok(fileAccepts({name:'REPORT.PDF'},'pdf'));assert.ok(!fileAccepts({name:'report.doc'},'documents'));assert.ok(!fileAccepts({name:'legacy.xls'},'sheets'));assert.ok(fileAccepts({name:'table.xlsx'},'sheets'))});
+test('catalog exposes working engine routes, with honest extraction labels',()=>{assert.ok(tools.length>=60);assert.ok(tools.some(t=>t.title==='PDF to Excel'&&t.note.includes('does not reconstruct tables')));assert.ok(!tools.some(t=>/DWG|CDR|RAR|7Z/.test(t.title)))});
