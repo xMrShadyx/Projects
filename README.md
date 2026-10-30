@@ -18,10 +18,10 @@ Each project lives in its own folder with source code and an English README.
 
 ## Media Forge
 
-A browser-based conversion workspace with 72 searchable conversion shortcuts and 31 output extensions for video, audio, images, PDF, documents, spreadsheets and archives.
+A browser-based conversion workspace with 84 searchable conversion shortcuts and 31 output extensions for video, audio, images, PDF, documents, spreadsheets and archives.
 
 - [Source, setup and capability details](./media-forge/README.md)
 - [Hosted demo](https://shady-media-forge.daredevil91138.chatgpt.site) — owner-private preview.
 - [Validation](./media-forge/VALIDATION.md)
 
-Files are processed on the user's device. Document conversion and format limitations are explained in the interface and README.
+Files are processed on the user's device. The interface defaults to light mode with a saved dark-mode option. PDF tools include merge, split, compression, page organization, watermarking, numbering, cropping and form flattening. Conversion and preservation limits are explained in the interface and README.

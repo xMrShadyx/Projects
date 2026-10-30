@@ -1,6 +1,6 @@
 # Media Forge
 
-A browser-based conversion workspace by ShadyCraft. An English interface, a searchable directory of 72 conversion shortcuts, and 31 output extensions across video, audio, images, PDF, documents, spreadsheets and archives.
+A browser-based conversion workspace by ShadyCraft. An English interface, a searchable directory of 84 conversion shortcuts, and 31 output extensions across video, audio, images, PDF, documents, spreadsheets and archives.
 
 Files are processed on the user's device. There is no upload API, account system or server-side conversion service. The first FFmpeg conversion downloads a version-pinned WebAssembly engine from jsDelivr; the rest of the application and document libraries are served with the site. Media bytes stay in browser memory. Google Fonts receives font requests, not file contents.
 
@@ -20,6 +20,10 @@ npm start
 
 Open http://127.0.0.1:4198. For static hosting, publish `dist/` after building. Keep the `vendor/`, `chunks/`, font and license files together. Serve JavaScript modules with an appropriate MIME type. The single-thread FFmpeg core does not require cross-origin isolation headers.
 
+## Interface
+
+The home screen has a searchable card directory with category filters and descriptions. Selecting a tool opens its workspace. The default theme is light; the theme button switches to dark and stores the preference in browser-local storage. Existing conversion results stay in memory while navigating between tools.
+
 ## Conversion tools
 
 | Tool | Inputs | Outputs and behavior |
@@ -29,6 +33,7 @@ Open http://127.0.0.1:4198. For static hosting, publish `dist/` after building. 
 | Audio converter | Audio files or a video with an audio track | MP3, WAV, FLAC, OGG, M4A, AAC; trim, bitrate, sample rate, mono/stereo, volume and speed |
 | Image converter | PNG, JPG, WebP, GIF, BMP, AVIF, TIFF, subject to decoder support | PNG, JPG, WebP, BMP, TIFF, ICO, still GIF; resize, rotation, mirroring, grayscale and relevant quality controls |
 | Video to image | Video | One PNG, JPG or WebP frame at the selected timestamp |
+| PDF tools | Unlocked PDF | Merge in queue order, split selected pages into ZIP, extract/remove/reorder pages, rotate, number, text watermark, crop visible bounds, flatten forms, optimize object streams, or raster-compress pages |
 | From PDF | Unlocked PDF | Selectable text to TXT/DOCX; page images in a PPTX; PNG/JPG/WebP pages in ZIP; raster-embedded SVG pages in ZIP; page-number/text rows to XLSX/CSV |
 | To PDF | Images, DOCX, TXT, Markdown, HTML, CSV, TSV, XLSX | Images embedded into individual PDFs; documents rebuilt from text; table values laid out as readable text |
 | Image documents | Standard browser-decodable images | Embed an image in PDF, DOCX or XLSX, or wrap a raster image in SVG |
@@ -50,7 +55,8 @@ Catalog entries are convenient presets for these tools, not separate proprietary
 - Up to 12 files and 300 MB total per batch. Media: 150 MB/file. Documents/archives: 25 MB/file. Mobile memory limits may be lower.
 - GIF: 0.1–30 seconds and width at most 1280 pixels. GIF conversion is intended for short clips.
 - FFmpeg jobs have a three-minute execution timeout; smaller clips/resolutions work best.
-- PDF: up to 50 selected pages per job. Rendered pages are capped at 16 megapixels. Password-protected documents are unsupported. There is no OCR.
+- PDF editing: up to 200 pages; merging up to 200 total pages. Raster compression supports 50 pages and rebuilds pages as JPEGs, losing selectable text, links, annotations, forms and signatures. It can increase the size of text-only PDFs. Structural optimization does not downsample images and does not guarantee a size reduction. Cropping only changes the visible boundary and is not redaction.
+- PDF export: up to 50 selected pages per job. Rendered pages are capped at 16 megapixels. Password-protected documents are unsupported. There is no OCR.
 - DOCX/PDF/HTML/ODT/EPUB/PPTX text conversions do not preserve original layout, pictures or styling. PDF-to-PPTX creates page-image slides. PDF-to-XLSX/CSV extracts text rows, not reconstructed tables. SVG output embeds a raster image rather than tracing vectors.
 - Spreadsheet conversion uses the first or named worksheet. Formula results use cached values; formulas are not evaluated. Charts and formatting are not retained. Limit: 10,000 rows × 100 columns. CSV/TSV formula-like strings are escaped to reduce spreadsheet formula execution on opening.
 - Archive containers are limited to 500 entries and 64 MB expanded data. Unsafe paths, encryption, ZIP64-sized archives and special TAR entry types are rejected. RAR, 7Z and compressed TAR are unsupported.
@@ -70,6 +76,7 @@ The fixture generator writes sample PDF, Word, spreadsheet, text, ODT, EPUB and 
 
 - `src/app.js`: interface, queue, conversion lifecycle and downloads.
 - `src/model.mjs`: media settings, validation and FFmpeg argument generation.
+- `src/pdf-tools.mjs`: lossless PDF page operations, numbering, watermarking and form flattening.
 - `src/catalog.js`: searchable conversion presets and honest capability descriptions.
 - `src/files.js`: lazily loaded PDF, document, spreadsheet and archive engines.
 - `src/file-model.mjs`: file routing, bounded page ranges and archive path checks.

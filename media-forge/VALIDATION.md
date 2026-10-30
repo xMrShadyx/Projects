@@ -4,7 +4,7 @@ Verified on 2026-10-30 in the Codex in-app browser using generated media and doc
 
 ## Automated checks
 
-- 12 tests pass: numeric bounds, GIF limits, codec command generation, audio stream selection, lossless bitrate behavior, playback timing, muting, GIF palettes, frame timestamps, file routing, filename cleanup, PDF page ranges and archive path checks.
+- 19 tests pass: numeric bounds, GIF limits, codec command generation, audio stream selection, lossless bitrate behavior, playback timing, muting, GIF palettes, frame timestamps, file routing, filename cleanup, PDF page ranges and archive path checks.
 - Production dependency audit reports zero known vulnerabilities at verification time.
 - Static application build succeeds.
 
@@ -33,3 +33,14 @@ Verified on 2026-10-30 in the Codex in-app browser using generated media and doc
 ## Limits of verification
 
 Real-world PDFs, spreadsheets, codecs and mobile memory conditions vary. No OCR, layout reconstruction, proprietary CAD conversion, RAR writing, HEIC decoding or server-side processing is claimed. Browser playback of a converted container depends on browser codecs; a successful download can still need an external player.
+
+## Light/dark redesign and PDF tools
+
+- Default light theme; switching to dark persists across reloads. Light and dark home/workspace layouts inspected.
+- Search filters cards; choosing a card opens its workspace; All tools returns to the directory.
+- Browser-verified PDF merge, split, extract, remove, reorder, rotation, page numbers, text watermark, crop, form flattening, structural optimization and raster compression.
+- Merge test reordered two inputs: the downloaded PDF has three pages and the expected first-page width, independently confirmed with PDF-lib.
+- Raster compression sample: an image-heavy PDF decreased from about 2 MB to about 75 KB. This is a sample result, not a general compression guarantee.
+- Seven additional automated PDF tests verify page order/count, split ZIP contents, selected rotations/crop bounds, form field removal, readable outputs and invalid-request/cancellation rejection.
+
+The catalog now includes 84 shortcuts. A narrow 390 px viewport showed no horizontal page overflow. PNG-to-JPEG conversion still succeeds after the navigation redesign.
