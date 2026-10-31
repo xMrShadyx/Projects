@@ -1,0 +1,52 @@
+name: Publish Media Forge to GitHub Pages
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'media-forge/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: media-forge/package-lock.json
+      - run: npm ci
+        working-directory: media-forge
+      - run: npm test
+        working-directory: media-forge
+      - run: npm run build
+        working-directory: media-forge
+      - name: Prepare public site
+        run: |
+          mkdir -p _site/media-forge
+          cp -a media-forge/dist/. _site/media-forge/
+          touch _site/.nojekyll
+          printf '%s\n' '<!doctype html><html lang="en"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=./media-forge/"><title>Media Forge</title><a href="./media-forge/">Open Media Forge</a></html>' > _site/index.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
