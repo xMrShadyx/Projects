@@ -3,7 +3,7 @@ const lookup=title=>tools.find(t=>t.title===title);
 const select=(titles)=>titles.map(lookup).filter(Boolean);
 const groups=[
  {name:'Organize PDF',category:'PDF tools',items:select(['Merge PDF','Split PDF','Remove pages','Extract pages','Organize PDF'])},
- {name:'Edit & optimize PDF',category:'PDF tools',items:select(['Rotate PDF','Page numbers','Watermark PDF','Crop PDF','Flatten forms','Compress PDF','Optimize PDF'])},
+ {name:'Edit & optimize PDF',category:'PDF tools',items:select(['Edit PDF','Rotate PDF','Page numbers','Watermark PDF','Crop PDF','Flatten forms','Compress PDF','Optimize PDF'])},
  {name:'Convert to PDF',category:'To PDF',items:select(['Images to PDF','Word to PDF','Excel to PDF','HTML to PDF','TXT to PDF','Markdown to PDF'])},
  {name:'Convert from PDF',category:'From PDF',items:tools.filter(t=>t.category==='From PDF')},
  {name:'Images',category:'Images',items:tools.filter(t=>t.category==='Images')},
@@ -11,7 +11,7 @@ const groups=[
  {name:'Documents & spreadsheets',category:'Documents',items:select(['Word to TXT','HTML to Word','CSV to Excel','Excel to CSV','Excel to JSON','JSON to Excel'])},
  {name:'Archives',category:'Archives',items:tools.filter(t=>t.category==='Archives')}
 ];
-function itemIcon(t){if(t.action)return {merge:'↔',split:'↗',remove:'−',extract:'↑',reorder:'↕',rotate:'↻',numbers:'#',watermark:'Aa',crop:'⌗',flatten:'▤',compress:'⇲',optimize:'⇲'}[t.action];return {docx:'W',xlsx:'X',pptx:'P',pdf:'PDF',jpg:'JPG',png:'PNG',webp:'W',txt:'TXT',gif:'GIF',mp3:'♫'}[t.format]||t.format.toUpperCase().slice(0,3)}
+function itemIcon(t){if(t.action)return {edit:'✎',merge:'↔',split:'↗',remove:'−',extract:'↑',reorder:'↕',rotate:'↻',numbers:'#',watermark:'Aa',crop:'⌗',flatten:'▤',compress:'⇲',optimize:'⇲'}[t.action];return {docx:'W',xlsx:'X',pptx:'P',pdf:'PDF',jpg:'JPG',png:'PNG',webp:'W',txt:'TXT',gif:'GIF',mp3:'♫'}[t.format]||t.format.toUpperCase().slice(0,3)}
 function link(t){return `<button type="button" class="mega-link" data-menu-tool="${tools.indexOf(t)}"><span class="mega-icon mega-${t.mode}">${itemIcon(t)}</span><span>${t.title}</span></button>`}
 function column(g,limit=6){return `<section class="mega-group"><h2>${g.name}</h2>${g.items.slice(0,limit).map(link).join('')}<button type="button" class="mega-more" data-menu-category="${g.category}">Explore ${g.category.toLowerCase()} <span>↗</span></button>${g.name==='Documents & spreadsheets'?'<button type="button" class="mega-more" data-menu-category="Spreadsheets">Explore spreadsheets <span>↗</span></button>':''}</section>`}
 export function initMenus(onSelect,onCategory){const header=document.querySelector('.app>header'),convert=document.querySelector('#convert-panel'),all=document.querySelector('#all-panel'),buttons=[...document.querySelectorAll('[data-dropdown]')];convert.innerHTML=`<div class="mega-intro"><strong>A new format, a fresh start.</strong><span>Convert your PDFs and documents on your device.</span></div><div class="mega-columns convert-columns">${column(groups[2],8)}${column(groups[3],9)}</div>`;all.innerHTML=`<div class="mega-intro"><strong>Your complete toolkit.</strong><span>PDF, media, images and everyday files. All in one place.</span></div><div class="mega-columns">${groups.map(g=>column(g)).join('')}</div><div class="mega-bottom"><span>◇ Your files stay on your device.</span><button type="button" data-menu-category="All">Explore all ${tools.length} tools →</button></div>`;let current=null;

@@ -1,6 +1,6 @@
 # Media Forge
 
-A browser-based conversion workspace by ShadyCraft. An English interface, a searchable directory of 84 conversion shortcuts, and 31 output extensions across video, audio, images, PDF, documents, spreadsheets and archives.
+A browser-based conversion workspace by ShadyCraft. An English interface, a searchable directory of 85 tool shortcuts, and 31 output extensions across video, audio, images, PDF, documents, spreadsheets and archives.
 
 Files are processed on the user's device. There is no upload API, account system or server-side conversion service. The first FFmpeg conversion downloads a version-pinned WebAssembly engine from jsDelivr; the rest of the application and document libraries are served with the site. Media bytes stay in browser memory. Google Fonts receives font requests, not file contents.
 
@@ -33,6 +33,7 @@ The header includes a two-column Convert PDF dropdown and a grouped All tools di
 | Audio converter | Audio files or a video with an audio track | MP3, WAV, FLAC, OGG, M4A, AAC; trim, bitrate, sample rate, mono/stereo, volume and speed |
 | Image converter | PNG, JPG, WebP, GIF, BMP, AVIF, TIFF, subject to decoder support | PNG, JPG, WebP, BMP, TIFF, ICO, still GIF; resize, rotation, mirroring, grayscale and relevant quality controls |
 | Video to image | Video | One PNG, JPG or WebP frame at the selected timestamp |
+| Edit PDF | Unlocked PDF | Preview one document at a time; add and position text/images, draw or handwrite a signature, change color/size, undo/redo, and save a separate copy. Existing text is unchanged; additions become transparent image overlays. Up to 200 pages and 25 MB |
 | PDF tools | Unlocked PDF | Merge in queue order, split selected pages into ZIP, extract/remove/reorder pages, rotate, number, text watermark, crop visible bounds, flatten forms, optimize object streams, or raster-compress pages |
 | From PDF | Unlocked PDF | Selectable text to TXT/DOCX; page images in a PPTX; PNG/JPG/WebP pages in ZIP; raster-embedded SVG pages in ZIP; page-number/text rows to XLSX/CSV |
 | To PDF | Images, DOCX, TXT, Markdown, HTML, CSV, TSV, XLSX | Images embedded into individual PDFs; documents rebuilt from text; table values laid out as readable text |
@@ -79,6 +80,7 @@ Original files and finished downloads have independent lists. Conversion never r
 - `src/app.js`: interface, queue, conversion lifecycle and downloads.
 - `src/results.mjs`: independent result snapshots and aggregate progress.
 - `src/model.mjs`: media settings, validation and FFmpeg argument generation.
+- `src/pdf-editor.js` and `src/pdf-overlay.mjs`: local visual additions, page preview and rotation-aware overlay export.
 - `src/pdf-tools.mjs`: lossless PDF page operations, numbering, watermarking and form flattening.
 - `src/catalog.js`: searchable conversion presets and honest capability descriptions.
 - `src/files.js`: lazily loaded PDF, document, spreadsheet and archive engines.

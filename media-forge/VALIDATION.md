@@ -55,3 +55,12 @@ Convert PDF and All tools were verified in the browser: direct tool selection, c
 - Processing displayed a spinner/status panel; completion displayed a persistent success panel and a prominent Download PDF link.
 - Repeating the merge created a second independent result. Removing an original retained both results; clearing results retained originals; clearing originals retained a finished result.
 - Four additional automated tests cover immutable source attribution, repeated conversion, actual output formats and bounded aggregate progress. All 23 automated tests pass.
+
+## Visual PDF editor
+
+- Added Edit PDF to the catalog, PDF action selector and All tools dropdown. Documents are opened individually, including via a row's Edit PDF button.
+- Browser-verified text content/size/position updates, image insertion and resizing, page navigation, freehand signature, element deletion, Undo/Redo, save and download. A two-page exported PDF was independently rendered with PyMuPDF: text, image and signature were present, and original selectable text remained extractable.
+- Cropped four-page fixture with 0/90/180/270 degree rotations: added labels remained at the displayed top-left on each page after saving. Independent raster bounds matched 10% positions, while page rotations and original text were preserved.
+- Light and dark previews checked. A 390 px viewport had no horizontal dialog overflow; saving from the narrow layout succeeded.
+- Three automated overlay tests cover rotated crop geometry, source immutability, output page preservation, invalid edits and cancellation. All 26 automated tests pass.
+- Additions are flattened raster overlays, not edits to existing text or a redaction mechanism. Drawn signatures are not certificate-based digital signatures. Existing digital signatures are not preserved. Editing sessions live only in memory and are discarded when closed; saved results remain until cleared or the page is closed.
