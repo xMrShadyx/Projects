@@ -46,10 +46,10 @@ Catalog entries are convenient presets for these tools, not separate proprietary
 
 ## File management
 
-- Drag and drop or choose multiple files; queue, remove, clear, cancel and retry.
+- Drag and drop or choose multiple files; readable file cards with labelled Preview file, Edit PDF, Remove file and Move up/down actions. Removal affects only the list, with Undo for the latest single or bulk removal.
 - Download individual results or a ZIP of all completed files.
 - Preview browser-playable media. Document and archive results download directly.
-- Completed results remain in memory until cleared, removed or the page is closed; they are not persisted to disk automatically.
+- Completed results remain in memory until cleared, removed or the page is closed; they are not persisted to disk automatically. Result records retain their original File objects so comparisons still work after source rows are removed. The latest removed items stay available for Undo until another removal replaces them or the page closes.
 
 ## Practical limits
 
@@ -73,12 +73,17 @@ node tests/make-fixtures.mjs
 
 The fixture generator writes sample PDF, Word, spreadsheet, text, ODT, EPUB and ZIP files to `tests/fixtures/`. Browser testing is manual using the same real interface as users. See [VALIDATION.md](VALIDATION.md) for verified scenarios and limits.
 
+## Preview & compare
+
+Preview original PDFs, common browser image formats, video and audio before processing. Results include original/output byte sizes and honest growth or reduction labels. PDF comparisons show original and result side by side with independent page navigation; merged PDFs let you choose the original to compare. Images use a keyboard-accessible before/after slider. Video/audio have native playback controls; GIF results animate in the browser. Unsupported formats/codecs show a fallback instead of claiming playback support. File bytes stay local; viewer object URLs and PDF rendering tasks are released when the preview closes.
+
 ## Architecture
 
 Original files and finished downloads have independent lists. Conversion never replaces an original. Results stay available when originals are removed, and the same originals can be converted again. Processing has a visible spinner/progress panel and a persistent completion message; each finished file has its own Download button.
 
 - `src/app.js`: interface, queue, conversion lifecycle and downloads.
-- `src/results.mjs`: independent result snapshots and aggregate progress.
+- `src/results.mjs`: independent result snapshots, original references and aggregate progress.
+- `src/preview.js` and `src/preview-model.mjs`: local previews, side-by-side PDF views, image comparison and file-size summaries.
 - `src/model.mjs`: media settings, validation and FFmpeg argument generation.
 - `src/pdf-editor.js` and `src/pdf-overlay.mjs`: local visual additions, page preview and rotation-aware overlay export.
 - `src/pdf-tools.mjs`: lossless PDF page operations, numbering, watermarking and form flattening.

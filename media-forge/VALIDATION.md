@@ -64,3 +64,12 @@ Convert PDF and All tools were verified in the browser: direct tool selection, c
 - Light and dark previews checked. A 390 px viewport had no horizontal dialog overflow; saving from the narrow layout succeeded.
 - Three automated overlay tests cover rotated crop geometry, source immutability, output page preservation, invalid edits and cancellation. All 26 automated tests pass.
 - Additions are flattened raster overlays, not edits to existing text or a redaction mechanism. Drawn signatures are not certificate-based digital signatures. Existing digital signatures are not preserved. Editing sessions live only in memory and are discarded when closed; saved results remain until cleared or the page is closed.
+
+## Clear file actions and local comparison
+
+- Source cards have larger filenames, readable metadata and visible labelled Preview file, Edit PDF, Remove file and Move up/down buttons. Main file actions measured at least 44 px tall with 14 px labels at a 390 px viewport; no horizontal page overflow was observed.
+- Single-file removal and Undo restore source order; bulk source removal and Undo restore both files; result removal and Undo retain the download and comparison. Source removal does not delete local disk files or remove finished results.
+- Original PDF preview paginates correctly. A merged three-page result displayed side by side with either source PDF, with separate page counts, even after source rows were removed.
+- PNG-to-JPEG output and original both decoded in the image comparison. Home/End keyboard controls moved the comparison slider to its ends. Light/dark themes and narrow preview layout were checked without horizontal dialog overflow.
+- MP4-to-GIF conversion completed; preview showed a browser-ready video with native controls alongside the GIF result. Browser codec limitations remain explicit.
+- Three additional automated tests cover preview routing, size increase/decrease reporting and original-byte retention after source removal. All 29 automated tests pass.
