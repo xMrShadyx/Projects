@@ -1,5 +1,6 @@
 export function previewKind(file,name=file.name||''){
  const ext=name.split('.').pop().toLowerCase();
+ if(['txt','md'].includes(ext))return 'text';
  if(ext==='pdf'||file.type==='application/pdf')return 'pdf';
  if(['png','jpg','jpeg','webp','gif','bmp','avif','svg','ico'].includes(ext))return 'image';
  if(['mp4','webm','mov','mkv','avi','m4v','ogv'].includes(ext))return 'video';

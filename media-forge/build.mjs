@@ -11,7 +11,7 @@ if(createHash('sha256').update(await fs.readFile(fontPath)).digest('hex')!=='b85
 await fs.mkdir('dist/chunks',{recursive:true});
 for(const file of await fs.readdir('dist/chunks'))if(file.endsWith('.js'))await fs.unlink('dist/chunks/'+file);
 await fs.mkdir('dist/licenses',{recursive:true});
-for(const name of ['@ffmpeg/ffmpeg','fflate','pdf-lib','pdfjs-dist','@pdf-lib/fontkit','mammoth','docx','exceljs','pptxgenjs','jszip','papaparse']){const dir='node_modules/'+name;for(const file of await fs.readdir(dir))if(/^licen[cs]e|^copying|^notice/i.test(file))await fs.copyFile(dir+'/'+file,'dist/licenses/'+name.replace('/','-')+'-'+file).catch(()=>{});}
+for(const name of ['@ffmpeg/ffmpeg','fflate','pdf-lib','pdfjs-dist','@pdf-lib/fontkit','mammoth','docx','exceljs','pptxgenjs','jszip','papaparse','tesseract.js','tesseract.js-core','@tesseract.js-data/eng','@tesseract.js-data/bul']){const dir='node_modules/'+name;for(const file of await fs.readdir(dir))if(/^licen[cs]e|^copying|^notice/i.test(file))await fs.copyFile(dir+'/'+file,'dist/licenses/'+name.replace('/','-')+'-'+file).catch(()=>{});}
 await fs.copyFile('THIRD_PARTY.md','dist/licenses/THIRD_PARTY.md');
 await fs.mkdir('dist/vendor',{recursive:true});
 await fs.cp('public','dist',{recursive:true});
@@ -26,6 +26,11 @@ for(const f of ['const.js','errors.js'])await fs.copyFile('node_modules/@ffmpeg/
 await fs.copyFile('node_modules/@ffmpeg/core/dist/esm/ffmpeg-core.js','dist/vendor/ffmpeg-core.js');
 // Keep the large, unchanged engine on its official version-pinned CDN.
 // Media bytes remain in browser memory; the CDN receives only an engine request.
+await fs.mkdir('dist/vendor/ocr/core',{recursive:true});
+await fs.mkdir('dist/vendor/ocr/lang',{recursive:true});
+await fs.copyFile('node_modules/tesseract.js/dist/worker.min.js','dist/vendor/ocr/worker.min.js');
+for(const file of await fs.readdir('node_modules/tesseract.js-core'))if(file.endsWith('.wasm.js'))await fs.copyFile('node_modules/tesseract.js-core/'+file,'dist/vendor/ocr/core/'+file);
+for(const lang of ['eng','bul'])await fs.copyFile('node_modules/@tesseract.js-data/'+lang+'/4.0.0_best_int/'+lang+'.traineddata.gz','dist/vendor/ocr/lang/'+lang+'.traineddata.gz');
 await build({entryPoints:['src/app.js'],bundle:true,format:'esm',outdir:'dist',splitting:true,chunkNames:'chunks/[name]-[hash]',target:['es2022'],minify:true});
 console.log('Media Forge built.');
 

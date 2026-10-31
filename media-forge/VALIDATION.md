@@ -32,7 +32,7 @@ Verified on 2026-10-30 in the Codex in-app browser using generated media and doc
 
 ## Limits of verification
 
-Real-world PDFs, spreadsheets, codecs and mobile memory conditions vary. No OCR, layout reconstruction, proprietary CAD conversion, RAR writing, HEIC decoding or server-side processing is claimed. Browser playback of a converted container depends on browser codecs; a successful download can still need an external player.
+Real-world PDFs, spreadsheets, codecs and mobile memory conditions vary. No layout reconstruction, proprietary CAD conversion, RAR writing, HEIC decoding or server-side processing is claimed. Browser playback of a converted container depends on browser codecs; a successful download can still need an external player.
 
 ## Light/dark redesign and PDF tools
 
@@ -73,3 +73,17 @@ Convert PDF and All tools were verified in the browser: direct tool selection, c
 - PNG-to-JPEG output and original both decoded in the image comparison. Home/End keyboard controls moved the comparison slider to its ends. Light/dark themes and narrow preview layout were checked without horizontal dialog overflow.
 - MP4-to-GIF conversion completed; preview showed a browser-ready video with native controls alongside the GIF result. Browser codec limitations remain explicit.
 - Three additional automated tests cover preview routing, size increase/decrease reporting and original-byte retention after source removal. All 29 automated tests pass.
+
+## Page organizer, presets, recovery and OCR
+
+- Browser-tested thumbnail loading, pointer drag reordering, labelled movement buttons, multi-selection rotation/removal, Undo and the guard against removing all pages. A downloaded three-page layout retained the expected rotations [0, 0, 180], independently checked with PDF-lib. Original files remained separate from results.
+- Ready-made presets changed actual controls: GIF For email selected width 320, 10 fps and 3 seconds; PDF compression Best quality selected 0.85. Manual width input switched to Custom settings. An image email conversion preserved a 160x120 input size instead of upscaling it, and the compact FFmpeg GIF conversion succeeded.
+- Scanned PDF extraction showed a friendly explanation and an Open OCR tool action that retained the source file. Locked PDF OCR showed a choose-unlocked-copy action. An image without text showed a review-language/settings action; that button focused the OCR language selector. Retry operates on the selected failed file.
+- Two-page raster scan fixture had zero extractable source characters. OCR produced a two-page searchable PDF whose independently extracted text contained MEDIA FORGE OCR TEST, invoice 2048 and amount 123.45 on both pages. TXT output was also reviewed in the browser.
+- Bulgarian raster text was recognized as ТЕСТ НА РАЗПОЗНАВАНЕ / Здравей, България! / Номер на документ 2048 / Обща сума 123.45. Both downloaded TXT and selectable text in a generated PDF were independently checked. PDF preview's copyable page-text panel displayed the Bulgarian result.
+- A 21-page selection was refused with a Choose fewer pages action that focused the page input; selecting page 1 and retrying succeeded.
+- Cancelling OCR on a 20-page scan stopped the operation and retained prior downloads. OCR worker/core/language assets were served from the local site; no document-upload endpoint was introduced.
+- Dark organizer and a 390 px viewport were checked with no horizontal dialog overflow. Touch/pointer thumbnail dragging and labelled movement buttons share the same immutable layout operations.
+- Seven additional automated tests cover layout immutability, complete-page-removal rejection, export page order and combined rotations, cancellation, preset bounds/limitations/no-upscaling filters, recovery actions and OCR input routing. All 36 tests pass.
+
+OCR accuracy is demonstrated on clear synthetic printed English and Bulgarian fixtures, not guaranteed for arbitrary scans. Handwriting, skewed/low-resolution pages, complex layouts and mixed scripts may need correction. Searchable PDF OCR rebuilds selected page images and loses original forms, links and signatures. Recognition is limited to 20 selected pages and 25 MB per file, with a 24-megapixel image input limit and bounded page rasters.

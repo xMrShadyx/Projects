@@ -6,6 +6,9 @@ Media Forge uses these independently licensed components. Source, license and bu
 | --- | --- | --- |
 | FFmpeg browser wrapper | 0.12.15 | MIT — https://github.com/ffmpegwasm/ffmpeg.wasm |
 | FFmpeg single-thread WebAssembly core | 0.12.10 | GPL-2.0-or-later — https://github.com/ffmpegwasm/ffmpeg.wasm (core build scripts and source references); https://ffmpeg.org/legal.html |
+| Tesseract.js | 7.0.0 | Apache-2.0 — https://github.com/naptha/tesseract.js |
+| Tesseract.js core | 7.0.0 | Apache-2.0 — https://github.com/naptha/tesseract.js-core |
+| English / Bulgarian trained data | 1.0.0 | Apache-2.0 — https://github.com/naptha/tessdata (4.0.0_best_int) |
 | fflate | 0.8.3 | MIT — https://github.com/101arrowz/fflate |
 | PDF-lib | 1.17.1 | MIT — https://github.com/Hopding/pdf-lib |
 | PDF.js | 6.4.299 | Apache-2.0 — https://github.com/mozilla/pdf.js |

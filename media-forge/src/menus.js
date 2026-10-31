@@ -3,7 +3,7 @@ const lookup=title=>tools.find(t=>t.title===title);
 const select=(titles)=>titles.map(lookup).filter(Boolean);
 const groups=[
  {name:'Organize PDF',category:'PDF tools',items:select(['Merge PDF','Split PDF','Remove pages','Extract pages','Organize PDF'])},
- {name:'Edit & optimize PDF',category:'PDF tools',items:select(['Edit PDF','Rotate PDF','Page numbers','Watermark PDF','Crop PDF','Flatten forms','Compress PDF','Optimize PDF'])},
+ {name:'Edit & optimize PDF',category:'PDF tools',items:select(['Edit PDF','Rotate PDF','Page numbers','Watermark PDF','Crop PDF','OCR PDF','Flatten forms','Compress PDF','Optimize PDF'])},
  {name:'Convert to PDF',category:'To PDF',items:select(['Images to PDF','Word to PDF','Excel to PDF','HTML to PDF','TXT to PDF','Markdown to PDF'])},
  {name:'Convert from PDF',category:'From PDF',items:tools.filter(t=>t.category==='From PDF')},
  {name:'Images',category:'Images',items:tools.filter(t=>t.category==='Images')},
