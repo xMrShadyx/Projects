@@ -74,7 +74,10 @@ The fixture generator writes sample PDF, Word, spreadsheet, text, ODT, EPUB and 
 
 ## Architecture
 
+Original files and finished downloads have independent lists. Conversion never replaces an original. Results stay available when originals are removed, and the same originals can be converted again. Processing has a visible spinner/progress panel and a persistent completion message; each finished file has its own Download button.
+
 - `src/app.js`: interface, queue, conversion lifecycle and downloads.
+- `src/results.mjs`: independent result snapshots and aggregate progress.
 - `src/model.mjs`: media settings, validation and FFmpeg argument generation.
 - `src/pdf-tools.mjs`: lossless PDF page operations, numbering, watermarking and form flattening.
 - `src/catalog.js`: searchable conversion presets and honest capability descriptions.

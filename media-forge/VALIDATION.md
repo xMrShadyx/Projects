@@ -48,3 +48,10 @@ The catalog now includes 84 shortcuts. A narrow 390 px viewport showed no horizo
 ## Header dropdown menus
 
 Convert PDF and All tools were verified in the browser: direct tool selection, category shortcuts, one open menu at a time, ArrowDown to open/focus, Escape to close/restore focus, outside-click dismissal, dark theme, and narrow-screen layout.
+
+## Separate originals and results
+
+- Browser merge of three PDFs retained all three original names and created one separate result. The downloaded PDF was independently read with PDF-lib and contained four pages.
+- Processing displayed a spinner/status panel; completion displayed a persistent success panel and a prominent Download PDF link.
+- Repeating the merge created a second independent result. Removing an original retained both results; clearing results retained originals; clearing originals retained a finished result.
+- Four additional automated tests cover immutable source attribution, repeated conversion, actual output formats and bounded aggregate progress. All 23 automated tests pass.
